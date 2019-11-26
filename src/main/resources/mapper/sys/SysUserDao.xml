@@ -29,4 +29,25 @@
 		select * from sys_user where username = #{username}
 	</select>
 
+	<select id="queryTitlePage" resultType="io.renren.modules.sys.entity.SysUserEntityss">
+		SELECT
+			su1.user_id as userId,
+		  su1.username,
+		  ti.title
+		FROM
+			sys_user  su1
+		LEFT JOIN sys_title ti
+				ON su1.title = ti.id
+		WHERE
+			<if test="titlename!=null and titlename !=''">
+				and su1.title > #{titlename}
+			</if>
+			<if test="username !=null and username !=''">
+				and su1.username like '%${username}%'
+			</if>
+			<if test="id !=null and id !=''">
+				and su1.id = #{id}
+			</if>
+		order by su1.title
+	</select>
 </mapper>

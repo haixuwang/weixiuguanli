@@ -83,7 +83,11 @@ public class SysUserEntityss implements Serializable {
 	 */
 	private Date createTime;
 
+	private Integer sex;
 
+	private String title;
+
+	private String titleName;
 
 
 }

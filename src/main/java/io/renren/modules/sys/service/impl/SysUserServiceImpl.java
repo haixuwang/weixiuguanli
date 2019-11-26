@@ -30,10 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -162,5 +159,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 		if(!roleIdList.containsAll(user.getRoleIdList())){
 			throw new RRException("新增用户所选角色，不是本人创建");
 		}
+	}
+
+
+	@Override
+	public Page<SysUserEntityss> getTitalUserList(Map<String, Object> params) {
+		int pageNum = Integer.parseInt(params.get("pageNum").toString());
+		int pageSize =Integer.parseInt(params.get("pageSize").toString());
+
+		Page<SysUserEntityss> page = new Page<>(pageNum,pageSize);// 当前页，总条数 构造 page 对象
+		List<SysUserEntityss> records = baseMapper.queryTitlePage(page,params);
+		return page.setRecords(records);
 	}
 }

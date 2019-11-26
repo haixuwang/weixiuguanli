@@ -89,4 +89,9 @@ public class SysUserEntity implements Serializable {
 	 */
 	private Date createTime;
 
+
+	private String title;
+
+	private Integer sex;
+
 }

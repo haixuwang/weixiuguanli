@@ -127,10 +127,9 @@ public class SysUserController extends AbstractController {
 	@PostMapping("/save")
 	@RequiresPermissions("sys:user:save")
 	public R save(@RequestBody SysUserEntity user){
-		ValidatorUtils.validateEntity(user, AddGroup.class);
+		//ValidatorUtils.validateEntity(user, AddGroup.class);
 		user.setCreateUserId(getUserId());
 		sysUserService.saveUser(user);
-		
 		return R.ok();
 	}
 	
@@ -141,8 +140,6 @@ public class SysUserController extends AbstractController {
 	@PostMapping("/update")
 	@RequiresPermissions("sys:user:update")
 	public R update(@RequestBody SysUserEntity user){
-		ValidatorUtils.validateEntity(user, UpdateGroup.class);
-
 		user.setCreateUserId(getUserId());
 		sysUserService.update(user);
 		
@@ -167,5 +164,17 @@ public class SysUserController extends AbstractController {
 		sysUserService.deleteBatch(userIds);
 		
 		return R.ok();
+	}
+
+
+	@PostMapping("/getTitleUser")
+	public R getTitleUser(@RequestBody Map<String,Object> params){
+		try {
+			Page<SysUserEntityss> page = sysUserService.getTitalUserList(params);
+			return R.ok().put("page",page);
+		}catch (Exception e){
+			e.printStackTrace();
+			return R.error(1,"123");
+		}
 	}
 }
