@@ -14,6 +14,7 @@ import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.entity.SysUserEntityss;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 import java.util.Map;
@@ -26,7 +27,7 @@ import java.util.Map;
 @Mapper
 public interface SysUserDao extends BaseMapper<SysUserEntity> {
 
-	List<SysUserEntityss> queryAllList(Page<SysUserEntityss> page, Map<String,Object> params);
+	List<SysUserEntityss> queryAllList(Page<SysUserEntityss> page, @Param("params") Map<String,Object> params);
 
 	/**
 	 * 查询用户的所有权限
@@ -44,5 +45,7 @@ public interface SysUserDao extends BaseMapper<SysUserEntity> {
 	 */
 	SysUserEntity queryByUserName(String username);
 
-	List<SysUserEntityss> queryTitlePage(Page<SysUserEntityss> page,Map<String,Object> params);
+
+
+	List<SysUserEntityss> queryTitlePage(Page<SysUserEntityss> page,@Param("params") Map<String,Object> params);
 }
