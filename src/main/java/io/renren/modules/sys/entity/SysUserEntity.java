@@ -38,7 +38,7 @@ public class SysUserEntity implements Serializable {
 	private Long userId;
 
 
-	private Long parentId;
+	private Long orgid;
 
 	/**
 	 * 用户名

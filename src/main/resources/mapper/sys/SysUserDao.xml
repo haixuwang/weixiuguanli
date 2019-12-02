@@ -9,12 +9,10 @@
 
 
 	<select id="queryAllList" resultType="io.renren.modules.sys.entity.SysUserEntityss">
-		select u.*,u1.username as parentName from sys_user u
-		left join sys_user u1
-		on u.parent_id = u1.user_id
+		select u.* from sys_user u
 		<where>
 			<if test="params.username !=null and params.username !=''">
-				and u1.username like '%${params.username}%'
+				and u.username like '%${params.username}%'
 			</if>
 		</where>
 	</select>

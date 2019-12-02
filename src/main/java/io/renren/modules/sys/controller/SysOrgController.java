@@ -56,18 +56,7 @@ public class SysOrgController extends AbstractController {
 		orgList.add(root);
 
 		return R.ok().put("orgList",orgList);
-//
-//		List<SysMenuEntity> menuList = sysMenuService.queryNotButtonList();
-//
-//		//添加顶级菜单
-//		SysMenuEntity root = new SysMenuEntity();
-//		root.setMenuId(0L);
-//		root.setName("一级菜单");
-//		root.setParentId(-1L);
-//		root.setOpen(true);
-//		menuList.add(root);
-//
-//		return R.ok().put("menuList", menuList);
+
 	}
 	
 	/**
