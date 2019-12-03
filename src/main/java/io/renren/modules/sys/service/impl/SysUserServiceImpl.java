@@ -17,8 +17,10 @@ import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.Query;
 import io.renren.modules.sys.dao.SysUserDao;
+import io.renren.modules.sys.entity.SysOrgEntity;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.entity.SysUserEntityss;
+import io.renren.modules.sys.service.SysOrgService;
 import io.renren.modules.sys.service.SysRoleService;
 import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserService;
@@ -28,6 +30,7 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sun.rmi.runtime.Log;
 
 import java.util.*;
 
@@ -44,6 +47,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 	@Autowired
 	private SysRoleService sysRoleService;
 
+	@Autowired
+	private SysOrgService sysOrgService;
+
 
 	@Override
 	public Page<SysUserEntityss> queryAllList(Map<String, Object> params) {
@@ -53,6 +59,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 		Page<SysUserEntityss> page = new Page<>(pageNum,pageSize);// 当前页，总条数 构造 page 对象
 		List<SysUserEntityss> records = baseMapper.queryAllList(page,params);
+		for (SysUserEntityss sysUserEntity:records){
+			if(sysUserEntity.getOrgid()!=null){
+				Long orgid = sysUserEntity.getOrgid();
+				SysOrgEntity sysOrgEntity = sysOrgService.getById(orgid);
+				if(sysOrgEntity !=null){
+					sysUserEntity.setOrgname(sysOrgEntity.getName());
+				}
+			}
+		}
 
 		return page.setRecords(records);
 	}
@@ -64,8 +79,6 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUserEntity> i
 
 		int pageSize = (int)params.get("pageSize");
 		int pageNum = (int)params.get("pageNum");
-
-
 
 		IPage<SysUserEntity> page = this.page(
 			new Query<SysUserEntity>().getPage(params),

@@ -40,6 +40,9 @@ public class SysUserEntity implements Serializable {
 
 	private Long orgid;
 
+	@TableField(exist=false)
+	private String orgname;
+
 	/**
 	 * 用户名
 	 */
@@ -93,5 +96,7 @@ public class SysUserEntity implements Serializable {
 	private String title;
 
 	private Integer sex;
+
+	private Integer isadmin;
 
 }

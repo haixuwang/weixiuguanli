@@ -14,9 +14,11 @@ import io.renren.common.utils.Constant;
 import io.renren.common.utils.PageUtils;
 import io.renren.common.utils.R;
 import io.renren.common.validator.Assert;
+import io.renren.modules.sys.entity.SysOrgEntity;
 import io.renren.modules.sys.entity.SysUserEntity;
 import io.renren.modules.sys.entity.SysUserEntityss;
 import io.renren.modules.sys.form.PasswordForm;
+import io.renren.modules.sys.service.SysOrgService;
 import io.renren.modules.sys.service.SysUserRoleService;
 import io.renren.modules.sys.service.SysUserService;
 import org.apache.commons.lang.ArrayUtils;
@@ -40,6 +42,8 @@ public class SysUserController extends AbstractController {
 	private SysUserService sysUserService;
 	@Autowired
 	private SysUserRoleService sysUserRoleService;
+	@Autowired
+	private SysOrgService sysOrgService;
 
 
 	/**
@@ -109,7 +113,13 @@ public class SysUserController extends AbstractController {
 	@RequiresPermissions("sys:user:info")
 	public R info(@PathVariable("userId") Long userId){
 		SysUserEntity user = sysUserService.getById(userId);
-		
+		if(user.getOrgid()!=null){
+			SysOrgEntity org = sysOrgService.getById(user.getOrgid());
+			if(org!=null){
+				user.setOrgname(org.getName());
+			}
+		}
+
 		//获取用户所属的角色列表
 		List<Long> roleIdList = sysUserRoleService.queryRoleIdList(userId);
 		user.setRoleIdList(roleIdList);
