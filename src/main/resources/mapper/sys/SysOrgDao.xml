@@ -12,5 +12,7 @@
 		select * from sys_org where parentid = #{parentid} order by orderby asc
 	</select>
 
+	<select id="queryList">
 
+	</select>
 </mapper>
