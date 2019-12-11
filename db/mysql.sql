@@ -9,7 +9,7 @@ CREATE TABLE `sys_menu` (
   `icon` varchar(50) COMMENT '菜单图标',
   `order_num` int COMMENT '排序',
   PRIMARY KEY (`menu_id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='菜单管理';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='菜单管理';
 
 -- 系统用户
 CREATE TABLE `sys_user` (
@@ -24,7 +24,7 @@ CREATE TABLE `sys_user` (
   `create_time` datetime COMMENT '创建时间',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX (`username`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='系统用户';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户';
 
 -- 系统用户Token
 CREATE TABLE `sys_user_token` (
@@ -34,7 +34,7 @@ CREATE TABLE `sys_user_token` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `token` (`token`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='系统用户Token';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统用户Token';
 
 -- 系统验证码
 CREATE TABLE `sys_captcha` (
@@ -42,7 +42,7 @@ CREATE TABLE `sys_captcha` (
   `code` varchar(6) NOT NULL COMMENT '验证码',
   `expire_time` datetime DEFAULT NULL COMMENT '过期时间',
   PRIMARY KEY (`uuid`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='系统验证码';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统验证码';
 
 -- 角色
 CREATE TABLE `sys_role` (
@@ -52,7 +52,7 @@ CREATE TABLE `sys_role` (
   `create_user_id` bigint(20) COMMENT '创建者ID',
   `create_time` datetime COMMENT '创建时间',
   PRIMARY KEY (`role_id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='角色';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色';
 
 -- 用户与角色对应关系
 CREATE TABLE `sys_user_role` (
@@ -60,7 +60,7 @@ CREATE TABLE `sys_user_role` (
   `user_id` bigint COMMENT '用户ID',
   `role_id` bigint COMMENT '角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='用户与角色对应关系';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户与角色对应关系';
 
 -- 角色与菜单对应关系
 CREATE TABLE `sys_role_menu` (
@@ -68,7 +68,7 @@ CREATE TABLE `sys_role_menu` (
   `role_id` bigint COMMENT '角色ID',
   `menu_id` bigint COMMENT '菜单ID',
   PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='角色与菜单对应关系';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色与菜单对应关系';
 
 -- 系统配置信息
 CREATE TABLE `sys_config` (
@@ -79,7 +79,7 @@ CREATE TABLE `sys_config` (
 	`remark` varchar(500) COMMENT '备注',
 	PRIMARY KEY (`id`),
 	UNIQUE INDEX (`param_key`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='系统配置信息表';
+) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='系统配置信息表';
 
 
 -- 系统日志
@@ -93,7 +93,7 @@ CREATE TABLE `sys_log` (
   `ip` varchar(64) COMMENT 'IP地址',
   `create_date` datetime COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='系统日志';
+) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='系统日志';
 
 
 -- 文件上传
@@ -102,26 +102,28 @@ CREATE TABLE `sys_oss` (
   `url` varchar(200) COMMENT 'URL地址',
   `create_date` datetime COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='文件上传';
+) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8 COMMENT='文件上传';
 
 
 -- 定时任务
 CREATE TABLE `schedule_job` (
   `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务id',
   `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean名称',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '方法名',
   `params` varchar(2000) DEFAULT NULL COMMENT '参数',
   `cron_expression` varchar(100) DEFAULT NULL COMMENT 'cron表达式',
   `status` tinyint(4) DEFAULT NULL COMMENT '任务状态  0：正常  1：暂停',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='定时任务';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务';
 
 -- 定时任务日志
 CREATE TABLE `schedule_job_log` (
   `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志id',
   `job_id` bigint(20) NOT NULL COMMENT '任务id',
   `bean_name` varchar(200) DEFAULT NULL COMMENT 'spring bean名称',
+  `method_name` varchar(100) DEFAULT NULL COMMENT '方法名',
   `params` varchar(2000) DEFAULT NULL COMMENT '参数',
   `status` tinyint(4) NOT NULL COMMENT '任务状态    0：成功    1：失败',
   `error` varchar(2000) DEFAULT NULL COMMENT '失败信息',
@@ -129,7 +131,7 @@ CREATE TABLE `schedule_job_log` (
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`log_id`),
   KEY `job_id` (`job_id`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='定时任务日志';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='定时任务日志';
 
 
 
@@ -142,7 +144,7 @@ CREATE TABLE `tb_user` (
   `create_time` datetime COMMENT '创建时间',
   PRIMARY KEY (`user_id`),
   UNIQUE INDEX (`username`)
-) ENGINE=`InnoDB` DEFAULT CHARACTER SET utf8mb4 COMMENT='用户';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户';
 
 
 
@@ -183,7 +185,8 @@ INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `
 INSERT INTO `sys_menu`(`menu_id`, `parent_id`, `name`, `url`, `perms`, `type`, `icon`, `order_num`) VALUES (30, 1, '文件上传', 'oss/oss', 'sys:oss:all', 1, 'oss', 6);
 
 INSERT INTO `sys_config` (`param_key`, `param_value`, `status`, `remark`) VALUES ('CLOUD_STORAGE_CONFIG_KEY', '{\"aliyunAccessKeyId\":\"\",\"aliyunAccessKeySecret\":\"\",\"aliyunBucketName\":\"\",\"aliyunDomain\":\"\",\"aliyunEndPoint\":\"\",\"aliyunPrefix\":\"\",\"qcloudBucketName\":\"\",\"qcloudDomain\":\"\",\"qcloudPrefix\":\"\",\"qcloudSecretId\":\"\",\"qcloudSecretKey\":\"\",\"qiniuAccessKey\":\"NrgMfABZxWLo5B-YYSjoE8-AZ1EISdi1Z3ubLOeZ\",\"qiniuBucketName\":\"ios-app\",\"qiniuDomain\":\"http://7xqbwh.dl1.z0.glb.clouddn.com\",\"qiniuPrefix\":\"upload\",\"qiniuSecretKey\":\"uIwJHevMRWU0VLxFvgy0tAcOdGqasdtVlJkdy6vV\",\"type\":1}', '0', '云存储配置信息');
-INSERT INTO `schedule_job` (`bean_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'renren', '0 0/30 * * * ?', '0', '参数测试', now());
+INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test', 'renren', '0 0/30 * * * ?', '0', '有参数测试', '2016-12-01 23:16:46');
+INSERT INTO `schedule_job` (`bean_name`, `method_name`, `params`, `cron_expression`, `status`, `remark`, `create_time`) VALUES ('testTask', 'test2', NULL, '0 0/30 * * * ?', '1', '无参数测试', '2016-12-03 14:55:56');
 
 
 -- 账号：13612345678  密码：admin
