@@ -31,11 +31,23 @@ public class SysTaskController extends AbstractController {
 	/**
 	 * 所有组织结构列表
 	 */
-	@GetMapping("/list")
-	@RequiresPermissions("sys:task:list")
-	public Page<SysTaskEntity> list(@RequestBody Map<String,Object> params){
+	@PostMapping("/list")
+	//@RequiresPermissions("sys:task:list")
+	public R list(@RequestBody Map<String,Object> params){
 		Page<SysTaskEntity> taskEntityPage = sysTaskService.queryTaskPage(params);
-		return taskEntityPage;
+		return  R.ok().put("page",taskEntityPage);
+	}
+
+
+	@PostMapping("info")
+	public R info(@RequestBody Map<String,Object> params){
+		try {
+			SysTaskEntity sysTaskEntity = sysTaskService.getTaskEntity(params);
+			return R.ok().put("task",sysTaskEntity);
+		}catch (Exception e){
+			e.printStackTrace();
+			return R.error(1,"获取录入信息出错!");
+		}
 	}
 
 }
