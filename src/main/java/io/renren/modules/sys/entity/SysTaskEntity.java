@@ -8,6 +8,7 @@
 
 package io.renren.modules.sys.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
@@ -47,6 +48,12 @@ public class SysTaskEntity implements Serializable {
 	private Long status; //状态 0 待分配 1 以分配 2待处理 3以处理
 
 	private String credate;
+
+	@TableField(exist=false)
+	private String orgname;
+
+	@TableField(exist=false)
+	private String assignername;
 
 
 }

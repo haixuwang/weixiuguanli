@@ -4,7 +4,13 @@
 <mapper namespace="io.renren.modules.sys.dao.SysTaskDao">
 
 	<select id="queryTaskPage" resultType="io.renren.modules.sys.entity.SysTaskEntity">
-		select * from sys_task task
+		SELECT
+				task.*, org.`name` AS orgname,
+				suser.username AS assignername
+		FROM
+				sys_task task
+		LEFT JOIN sys_org org ON org.id = task.org
+		LEFT JOIN sys_user suser ON suser.user_id = task.assigner
 		<where>
 			<if test="params.title !=null and params.title !=''">
 				and task.title like '%${params.title}%'

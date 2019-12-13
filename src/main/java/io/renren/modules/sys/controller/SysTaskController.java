@@ -34,12 +34,19 @@ public class SysTaskController extends AbstractController {
 	@PostMapping("/list")
 	//@RequiresPermissions("sys:task:list")
 	public R list(@RequestBody Map<String,Object> params){
+		Page<SysTaskEntity> taskEntityPage = sysTaskService.queryTaskPage(params);
+		return  R.ok().put("page",taskEntityPage);
+	}
+
+
+	@PostMapping("info")
+	public R info(@RequestBody Map<String,Object> params){
 		try {
-			Page<SysTaskEntity> taskEntityPage = sysTaskService.queryTaskPage(params);
-			return R.ok().put("list",taskEntityPage);
+			SysTaskEntity sysTaskEntity = sysTaskService.getTaskEntity(params);
+			return R.ok().put("task",sysTaskEntity);
 		}catch (Exception e){
 			e.printStackTrace();
-			return R.error("查询任务出错！");
+			return R.error(1,"获取录入信息出错!");
 		}
 	}
 
