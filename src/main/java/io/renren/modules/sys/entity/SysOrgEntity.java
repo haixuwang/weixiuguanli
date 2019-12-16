@@ -41,7 +41,21 @@ public class SysOrgEntity implements Serializable {
 	 * 排序
 	 */
 	private Integer orderby;
-	
+
+	private Long userid;
+
+	private String username;
+
+	private String showname;
+
+	public String getShowname() {
+		return showname;
+	}
+
+	public void setShowname(String showname) {
+		this.showname = showname;
+	}
+
 	/**
 	 * ztree属性
 	 */
@@ -105,5 +119,21 @@ public class SysOrgEntity implements Serializable {
 
 	public void setList(List<?> list) {
 		this.list = list;
+	}
+
+	public Long getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Long userid) {
+		this.userid = userid;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 }

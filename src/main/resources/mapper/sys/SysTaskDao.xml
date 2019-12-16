@@ -34,8 +34,8 @@
 
 
 	<insert id="saveTaskEntity">
-		insert into sys_task (id,title,taskdate,position,desc,creuser,cremobile,creuserid,org,assigner,status,credate) values (
-			#{id},#{title},#{taskdate},#{position},#{desc},#{creuser},#{cremobile},#{creuserid},#{org},#{assigner},#{status},sysdate
+		insert into sys_task (id,title,taskdate,position,desc,creuser,cremobile,creuserid,org,assigner,status,credate,types) values (
+			#{id},#{title},#{taskdate},#{position},#{desc},#{creuser},#{cremobile},#{creuserid},#{org},#{assigner},#{status},sysdate,#{types}
 		)
 	</insert>
 

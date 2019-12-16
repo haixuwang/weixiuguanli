@@ -54,7 +54,19 @@ public class SysOrgController extends AbstractController {
 		root.setName("经理级");
 		root.setParentid(-1L);
 		orgList.add(root);
+		return R.ok().put("orgList",orgList);
 
+	}
+
+
+	/**
+	 * 选择菜单(添加、修改菜单)
+	 */
+	@GetMapping("/selectByTask")
+	public R selectByTask(){
+
+		//查询列表数据
+		List<SysOrgEntity> orgList = sysOrgService.queryList();
 		return R.ok().put("orgList",orgList);
 
 	}

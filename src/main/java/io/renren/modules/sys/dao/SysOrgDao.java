@@ -34,4 +34,6 @@ public interface SysOrgDao extends BaseMapper<SysOrgEntity> {
 	 */
 	List<SysOrgEntity> queryNotButtonList();
 
+	List<SysOrgEntity> queryList();
+
 }

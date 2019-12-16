@@ -46,6 +46,11 @@ public class SysOrgServiceImpl extends ServiceImpl<SysOrgDao, SysOrgEntity> impl
 	}
 
 	@Override
+	public List<SysOrgEntity> queryList() {
+		return baseMapper.queryList();
+	}
+
+	@Override
 	public List<SysOrgEntity> queryListParentId(Long parentId) {
 		return baseMapper.queryListParentId(parentId);
 	}

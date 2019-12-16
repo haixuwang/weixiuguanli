@@ -7,12 +7,19 @@
 
 	</resultMap>
 
-
-	<select id="queryListParentId" resultType="io.renren.modules.sys.entity.SysMenuEntity">
-		select * from sys_org where parentid = #{parentid} order by orderby asc
+	<select id="queryList" resultType="io.renren.modules.sys.entity.SysOrgEntity">
+		SELECT
+			suser.user_id,
+			suser.username,
+			sorg.id,
+			sorg.`name`,
+			sorg.orderby,
+			sorg.parentid,
+			concat_ws(":",sorg.`name`,suser.username) as showname
+		FROM
+			sys_org sorg
+		LEFT JOIN sys_user suser ON suser.orgid = sorg.id and suser.isadmin = 1
+		order by sorg.orderby
 	</select>
 
-	<select id="queryList">
-
-	</select>
 </mapper>

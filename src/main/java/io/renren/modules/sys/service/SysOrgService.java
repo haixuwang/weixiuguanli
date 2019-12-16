@@ -26,6 +26,8 @@ public interface SysOrgService extends IService<SysOrgEntity> {
 	 * @param parentid 父菜单ID
 	 */
 	List<SysOrgEntity> queryListParentId(Long parentid);
+
+	List<SysOrgEntity> queryList();
 	
 	/**
 	 * 获取不包含按钮的菜单列表

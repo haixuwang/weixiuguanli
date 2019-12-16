@@ -35,6 +35,8 @@ public class SysTaskEntity implements Serializable {
 
 	private String desc; //情况描述
 
+	private Long types;//报修分类 1 房产 2 电力 3 水暖 4 其他
+
 	private String creuser; //上报人姓名
 
 	private String cremobile; //上报人电话
