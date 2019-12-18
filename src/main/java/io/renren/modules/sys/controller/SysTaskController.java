@@ -129,7 +129,7 @@ public class SysTaskController extends AbstractController {
 		try {
 			//获取服务器的地址
 			//request.getRequestURI().toString();
-			String path = request.getSession().getServletContext().getRealPath("/");
+			String path = uploadFolder;
 			//String path = "E:/imageSource/upload/img/";
 			//文件保存的路径
 			File filePath = new File(path);
@@ -155,7 +155,8 @@ public class SysTaskController extends AbstractController {
 				//将文件保存到服务器
 				multipartFiles.transferTo(targetFile);
 				//拼接文件地址
-			    thumn += "http://localhost:8088//upload/goods/" + fileName;
+			    thumn += "http://localhost:223/renren-fast/image/" + fileName;
+			    System.out.println(thumn);
 		} catch (IOException e) {//文件上传失败
 			e.printStackTrace();
 		}
