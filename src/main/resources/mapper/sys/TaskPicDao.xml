@@ -8,9 +8,8 @@
 	</select>
 
 	<insert id="savePic" parameterType="list">
-		insert  all
-		<foreach collection="list" item="pic" index="index" >
-			into task_pic (id,picname,path,pid) values
+		insert  into task_pic (id,picname,path,pid)values
+		<foreach collection="list" item="pic" index="index" separator=",">
 			(#{pic.id},#{pic.picname},#{pic.path},#{pic.pid})
 		</foreach>
 	</insert>

@@ -19,7 +19,7 @@ import java.util.Map;
 @Mapper
 public interface TaskPicDao extends BaseMapper<TaskPicEntity> {
 
-	List<TaskPicEntity> getPic(@RequestParam("params")Map<String,Object> params);
+	List<TaskPicEntity> getPic(@Param("params")Map<String,Object> params);
 
 	void savePic(List<TaskPicEntity> picEntityList);
 
