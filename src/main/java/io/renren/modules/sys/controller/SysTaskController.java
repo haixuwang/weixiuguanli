@@ -10,6 +10,7 @@ import io.renren.modules.sys.entity.*;
 import io.renren.modules.sys.service.SysOrgService;
 import io.renren.modules.sys.service.SysRecordService;
 import io.renren.modules.sys.service.SysTaskService;
+import io.renren.modules.sys.service.TaskPicService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,9 @@ public class SysTaskController extends AbstractController {
 	@Autowired
 	private SysRecordService sysRecordService;
 
+	@Autowired
+	private TaskPicService taskPicService;
+
 	@Value("${task.uploadFolder}")
 	private String uploadFolder;
 
@@ -62,7 +66,11 @@ public class SysTaskController extends AbstractController {
 	@PostMapping("info")
 	public R info(@RequestBody Map<String,Object> params){
 		try {
+			SysTask sysTask = new SysTask();
+
 			SysTaskEntity sysTaskEntity = sysTaskService.getTaskEntity(params);
+			sysTask.setSysTaskEntity(sysTaskEntity);
+
 			return R.ok().put("task",sysTaskEntity);
 		}catch (Exception e){
 			e.printStackTrace();
@@ -81,6 +89,13 @@ public class SysTaskController extends AbstractController {
 			sysTaskService.saveTaskEntity(sysTaskEntity);
 			//获取照片
 			List<TaskPicEntity> picEntityList = systask.getPicList();
+			picEntityList.forEach(taskPicEntity -> {
+				taskPicEntity.setId(UUID.randomUUID().toString());
+				taskPicEntity.setPid(sysTaskEntity.getId());
+			});
+
+			taskPicService.savePic(picEntityList);
+
 			//新建记录表
 			SysRecordEntity sysRecordEntity = new SysRecordEntity();
 			sysRecordEntity.setId(UUID.randomUUID().toString());

@@ -9,7 +9,7 @@
 
 	<insert id="savePic" parameterType="list">
 		insert  all
-		<foreach collection="picEntityList" item="pic" index="index" >
+		<foreach collection="list" item="pic" index="index" >
 			into task_pic (id,picname,path,pid) values
 			(#{pic.id},#{pic.picname},#{pic.path},#{pic.pid})
 		</foreach>

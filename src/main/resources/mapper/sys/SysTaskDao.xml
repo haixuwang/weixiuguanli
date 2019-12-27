@@ -29,13 +29,13 @@
 	</select>
 
 	<select id="getTaskEntity" resultType="io.renren.modules.sys.entity.SysTaskEntity">
-		select * from sys_task where id = #{id}
+		select * from sys_task where id = #{params.id}
 	</select>
 
 
 	<insert id="saveTaskEntity">
-		insert into sys_task (id,title,taskdate,position,desc,creuser,cremobile,creuserid,org,assigner,status,credate,types) values (
-			#{id},#{title},#{taskdate},#{position},#{desc},#{creuser},#{cremobile},#{creuserid},#{org},#{assigner},#{status},sysdate,#{types}
+		insert into sys_task (id,title,taskdate,`position`,`desc`,creuser,cremobile,creuserid,org,assigner,status,credate,types) values (
+			#{id},#{title},#{taskdate},#{position},#{desc},#{creuser},#{cremobile},#{creuserid},#{org},#{assigner},#{status},now(),#{types}
 		)
 	</insert>
 
