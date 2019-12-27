@@ -17,12 +17,7 @@
 	<delete id="deletePic">
 		delete from task_pic
 		WHERE
-		<if test="params.id !=null and params.id !=''">
-			id = #{params.id}
-		</if>
-		<if test="params.pid !=null and params.pid !=''">
-			id = #{params.pid}
-		</if>
+			pid = #{id}
 	</delete>
 
 </mapper>

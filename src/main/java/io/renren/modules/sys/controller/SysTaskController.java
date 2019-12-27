@@ -121,11 +121,11 @@ public class SysTaskController extends AbstractController {
 			//获取任务
 			SysTaskEntity sysTaskEntity = systask.getSysTaskEntity();
 
-			sysTaskService.saveTaskEntity(sysTaskEntity);
+			sysTaskService.updateTaskEntity(sysTaskEntity);
 
 			Map<String,Object> params = new HashMap<>();
 			params.put("id",sysTaskEntity.getId());
-			taskPicService.deletePic(params);
+			taskPicService.deletePic(sysTaskEntity.getId());
 
 			//获取照片
 			List<TaskPicEntity> picEntityList = systask.getPicList();

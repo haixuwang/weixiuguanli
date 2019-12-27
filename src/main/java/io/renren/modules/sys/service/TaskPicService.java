@@ -28,6 +28,6 @@ public interface TaskPicService extends IService<TaskPicEntity> {
 
 	void savePic(List<TaskPicEntity> picEntityList);
 
-	void deletePic(Map<String,Object> params);
+	void deletePic(String id);
 
 }
